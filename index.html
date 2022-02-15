@@ -10,7 +10,34 @@
 </head>
 
 <body>
+    <canvas id="jsCanvas" class="canvas"></canvas>
+    <div class="controls">
+        <div class="controls__range">
+            <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
+        </div>
+        <div class="controls__btns">
+            <button id="jsMode">Fill</button>
+            <button id="jsClear">Clear</button>
+            <button id="jsSave">Save</button>
+        </div>
+        <div class="controls__colors" id="jsColors">
+            <div class="controls__color jsColor" style="background-color:#2c2c2c"></div>
+            <div class="controls__color jsColor" style="background-color:white"></div>
+            <div class="controls__color jsColor" style="background-color:#FF3B30"></div>
+            <div class="controls__color jsColor" style="background-color:#FF9500"></div>
+            <div class="controls__color jsColor" style="background-color:#FFCC00"></div>
+            <div class="controls__color jsColor" style="background-color:#4CD963"></div>
+            <div class="controls__color jsColor" style="background-color:#5AC9FA"></div>
+            <div class="controls__color jsColor" style="background-color:#0579FF"></div>
+            <div class="controls__color jsColor" style="background-color:#5856D6"></div>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 
 </html>
+
+<!-- 
+    js 작업할 때 : id, css 작업할 때 : class 
+    input : 최소 0.1부터 5까지 크기 조절 가능, 기본 값은 2.5이고 0.1 씩 조절 가능
+-->
