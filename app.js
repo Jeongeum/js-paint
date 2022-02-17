@@ -12,14 +12,14 @@ const CANVAS_SIZE = 700;
 canvas.width = CANVAS_SIZE;
 canvas.height = CANVAS_SIZE;
 
-ctx.fillStyle = "white";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-ctx.strokeStyle = INITIAL_COLOR;
+ctx.fillStyle = "white"; // 캔버스 기본 배경 색
+ctx.fillRect(0, 0, canvas.width, canvas.height); // 캔버스 기본 색으로 지정한 캔버스 크기만큼 채워준다.
+ctx.strokeStyle = INITIAL_COLOR; // 선의 색
 ctx.fillStyle = INITIAL_COLOR;
 ctx.lineWidth = 2.5;
 
-let painting = false;
-let filling = false;
+let painting = false; // 그리기 기본 값 : false
+let filling = false; // 채우기 기본 값 : false
 
 function stopPainting() {
   painting = false;
@@ -28,30 +28,34 @@ function stopPainting() {
 function startPainting() {
   painting = true;
 }
+
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
   if (!painting) {
+    // 그림 그리지 않을 때 마우스만 움직여도 선은 시작된다.
     ctx.beginPath();
-    ctx.moveTo(x, y);
+    ctx.moveTo(x, y); // 눈에는 안보이지만 이동하면서 좌표가 생성된다.
   } else {
-    ctx.lineTo(x, y);
-    ctx.stroke();
+    // 그림 그릴 때 (마우스 동작할 때) 마다 생긴다!
+    ctx.lineTo(x, y); // path가 그려지고
+    ctx.stroke(); // 그 path를 선으로 눈에 보이게 그린다.
   }
-  //
 }
 
 function changeColor(event) {
   const color = event.target.style.backgroundColor;
-  ctx.strokeStyle = color;
-  ctx.fillStyle = color;
+  ctx.strokeStyle = color; // 선의 색을 팔레트에서 클릭한 색으로 바꾼다.
+  ctx.fillStyle = color; // 채우기 색과 선의 색이 같아지도록 한다.
 }
 
+// 선의 굵기
 function handleRangeChange(event) {
   const size = event.target.value;
   ctx.lineWidth = size;
 }
 
+// 채우기
 function handleModeClick() {
   if (filling === true) {
     filling = false;
@@ -64,21 +68,21 @@ function handleModeClick() {
 
 function handleCanvasClick() {
   if (filling) {
+    //채우기가 true가 되면 캔버스 크기만큼 사각형으로 색을 채운다.
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 }
 
 function handleSaveClick() {
-  const image = canvas.toDataURL();
+  const image = canvas.toDataURL(); // 캔버스의 데이터를 url로 만든다. 기본값은 png이고 jpeg등으로 설정 가능하다.
   const link = document.createElement("a");
-  link.href = image;
-  link.download = "PaintJS";
-  link.click();
-  console.log(link);
+  link.href = image; // 다운로드 할 이미지의 주소를 a태그의 href에 넣는다.
+  link.download = "PaintJS"; // PaintJS라는 이름으로 파일을 다운로드 받는다.
+  link.click(); // 가짜클릭
 }
 
 function handleClearClick() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // 기본 배경인 white로 캔버스 크기만큼 사각형을 채운다.
 }
 
 if (canvas) {
@@ -89,6 +93,7 @@ if (canvas) {
   canvas.addEventListener("click", handleCanvasClick);
 }
 
+// 각 컬러들을 배열로 만든다.
 Array.from(colors).forEach((color) =>
   color.addEventListener("click", changeColor)
 );
